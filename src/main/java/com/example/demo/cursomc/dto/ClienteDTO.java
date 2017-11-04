@@ -5,9 +5,11 @@ import java.io.Serializable;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import com.example.demo.cursomc.services.validation.ClienteUpdate;
 
 import com.example.demo.cursomc.domain.Cliente;
 
+@ClienteUpdate
 public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
