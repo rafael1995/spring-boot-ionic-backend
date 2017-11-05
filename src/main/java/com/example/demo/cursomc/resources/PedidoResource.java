@@ -7,8 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
+
+import javax.validation.Valid;
+
 import com.example.demo.cursomc.domain.Pedido;
+import org.springframework.web.bind.annotation.RequestBody;
 import com.example.demo.cursomc.services.PedidoService;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping(value="/pedidos")
@@ -22,4 +28,12 @@ public class PedidoResource {
 		Pedido obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	 public ResponseEntity<Void> insert(@Valid @RequestBody Pedido obj) {
+		obj = service.insert(obj);
+	 	URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+	 	.path("/{id}").buildAndExpand(obj.getId()).toUri();
+	 	return ResponseEntity.created(uri).build();
+	 }
 }
